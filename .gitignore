@@ -1,0 +1,10 @@
+# build outputs
+*.exe
+*.log
+# caches / artifacts
+__pycache__/
+*.pyc
+build/bins/
+elrs-updater-cache/
+# nested firmware repo clone (published separately: falconshop/elrs-auto-firmware)
+repo/

@@ -1,0 +1,373 @@
+{
+  "_comment": "자동 생성. product_name 에 match 포함 시 해당 모델. 번들 5개만 exe 내장, 나머지는 GitHub 릴리스에서 다운로드.",
+  "models": [
+    {
+      "match": "BETAFPV 2.4GHz Nano",
+      "name": "BetaFPV Nano 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "BETAFPV_Nano_KC.bin.gz"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "BETAFPV_Nano_Global.bin.gz"
+        }
+      ]
+    },
+    {
+      "match": "BETAFPV 2.4GHz Lite",
+      "name": "BetaFPV Lite 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "BETAFPV_Lite_KC.bin.gz"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "BETAFPV_Lite_Global.bin.gz"
+        }
+      ]
+    },
+    {
+      "match": "BETAFPV SuperD",
+      "name": "BetaFPV SuperD 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "BETAFPV_SuperD_KC.bin"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "BETAFPV_SuperD_Global.bin"
+        }
+      ]
+    },
+    {
+      "match": "RadioMaster RP1",
+      "name": "RadioMaster RP1 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_RP1_KC.bin.gz"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "RadioMaster_RP1_Global.bin.gz"
+        }
+      ]
+    },
+    {
+      "match": "RadioMaster RP2",
+      "name": "RadioMaster RP2 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_RP2_KC.bin.gz"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "RadioMaster_RP2_Global.bin.gz"
+        }
+      ]
+    },
+    {
+      "match": "RadioMaster RP3",
+      "name": "RadioMaster RP3 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_RP3_KC.bin.gz"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "RadioMaster_RP3_Global.bin.gz"
+        }
+      ]
+    },
+    {
+      "match": "RP4TD-M",
+      "name": "RadioMaster RP4TD-M 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_RP4TDM_KC.bin"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "RadioMaster_RP4TDM_Global.bin"
+        }
+      ]
+    },
+    {
+      "match": "RP4TD True",
+      "name": "RadioMaster RP4TD 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_RP4TD_KC.bin"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "RadioMaster_RP4TD_Global.bin"
+        }
+      ]
+    },
+    {
+      "match": "RadioMaster ER4",
+      "name": "RadioMaster ER4 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_ER4_KC.bin.gz"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "RadioMaster_ER4_Global.bin.gz"
+        }
+      ]
+    },
+    {
+      "match": "ER3C-i",
+      "name": "RadioMaster ER3C-i 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_ER3Ci_KC.bin.gz"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "RadioMaster_ER3Ci_Global.bin.gz"
+        }
+      ]
+    },
+    {
+      "match": "ER5C-i",
+      "name": "RadioMaster ER5C-i 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_ER5Ci_KC.bin.gz"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "RadioMaster_ER5Ci_Global.bin.gz"
+        }
+      ]
+    },
+    {
+      "match": "ER5A/C V2",
+      "name": "RadioMaster ER5C V2 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_ER5C_V2_KC.bin.gz"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "RadioMaster_ER5C_V2_Global.bin.gz"
+        }
+      ]
+    },
+    {
+      "match": "ER6-GV",
+      "name": "RadioMaster ER6-GV 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_ER6GV_KC.bin"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "RadioMaster_ER6GV_Global.bin"
+        }
+      ]
+    },
+    {
+      "match": "ER6 2.4GHz",
+      "name": "RadioMaster ER6 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_ER6_KC.bin"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "RadioMaster_ER6_Global.bin"
+        }
+      ]
+    },
+    {
+      "match": "ER8-GV",
+      "name": "RadioMaster ER8-GV 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_ER8GV_KC.bin"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "RadioMaster_ER8GV_Global.bin"
+        }
+      ]
+    },
+    {
+      "match": "ER8 2.4GHz",
+      "name": "RadioMaster ER8 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_ER8_KC.bin"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "RadioMaster_ER8_Global.bin"
+        }
+      ]
+    },
+    {
+      "match": "RadioMaster XR4",
+      "name": "RadioMaster XR4 Dual-Band",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_XR4_KC.bin"
+        },
+        {
+          "id": "global",
+          "label": "글로벌(FCC)",
+          "file": "RadioMaster_XR4_Global.bin"
+        }
+      ]
+    },
+    {
+      "match": "RadioMaster XR3",
+      "name": "RadioMaster XR3 Dual-Band",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_XR3_KC.bin"
+        },
+        {
+          "id": "global",
+          "label": "글로벌(FCC)",
+          "file": "RadioMaster_XR3_Global.bin"
+        }
+      ]
+    },
+    {
+      "match": "RadioMaster XR1",
+      "name": "RadioMaster XR1 Dual-Band",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "RadioMaster_XR1_KC.bin"
+        },
+        {
+          "id": "global",
+          "label": "글로벌(FCC)",
+          "file": "RadioMaster_XR1_Global.bin"
+        }
+      ]
+    },
+    {
+      "match": "HelloRadio HR7E",
+      "name": "HelloRadio HR7E 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "HelloRadio_HR7E_KC.bin"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "HelloRadio_HR7E_Global.bin"
+        }
+      ]
+    },
+    {
+      "match": "HelloRadio HR8E",
+      "name": "HelloRadio HR8E 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "HelloRadio_HR8E_KC.bin"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "HelloRadio_HR8E_Global.bin"
+        }
+      ]
+    },
+    {
+      "match": "MATEK R24-D",
+      "name": "Matek R24-D 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "Matek_R24D_KC.bin.gz"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "Matek_R24D_Global.bin.gz"
+        }
+      ]
+    },
+    {
+      "match": "5xPWM",
+      "name": "BAYCKRC 5xPWM 2.4GHz",
+      "variants": [
+        {
+          "id": "kc",
+          "label": "KC펌",
+          "file": "BAYCK_5PWM_KC.bin.gz"
+        },
+        {
+          "id": "global",
+          "label": "글로벌펌",
+          "file": "BAYCK_5PWM_Global.bin.gz"
+        }
+      ]
+    }
+  ]
+}

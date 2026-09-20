@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ELRS 수신기 펌웨어 업데이트</title>
+<style>
+  :root{
+    --bg:#f4f6f9; --card:#ffffff; --ink:#1f2733; --sub:#6b7684;
+    --line:#e5e9f0; --brand:#2f6df6; --brand-ink:#ffffff;
+    --ok:#1a9e5f; --warn:#c8880a; --err:#d64545; --track:#e9edf3;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Malgun Gothic","맑은 고딕",system-ui,sans-serif;
+    display:flex; align-items:center; justify-content:center; padding:20px;
+  }
+  .card{
+    background:var(--card); width:100%; max-width:460px; border:1px solid var(--line);
+    border-radius:16px; box-shadow:0 8px 30px rgba(31,39,51,.08); overflow:hidden;
+  }
+  .head{padding:22px 24px 10px}
+  .head h1{margin:0;font-size:19px}
+  .head p{margin:6px 0 0;color:var(--sub);font-size:13px}
+  .body{padding:14px 24px 24px}
+
+  .step{display:flex;gap:10px;align-items:flex-start;padding:8px 0;color:var(--sub);font-size:13.5px}
+  .step b{color:var(--ink);font-weight:600}
+  .dot{flex:0 0 20px;height:20px;border-radius:50%;background:var(--track);color:var(--sub);
+       font-size:12px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+
+  .status{
+    margin:14px 0 4px; padding:16px; border-radius:12px; background:#f7f9fc;
+    border:1px solid var(--line); text-align:center;
+  }
+  .status .spin{width:26px;height:26px;border:3px solid var(--track);border-top-color:var(--brand);
+       border-radius:50%;animation:s .8s linear infinite;margin:2px auto 10px}
+  @keyframes s{to{transform:rotate(360deg)}}
+  .status .model{font-size:17px;font-weight:700;margin:2px 0}
+  .status .meta{font-size:12.5px;color:var(--sub);margin-top:3px}
+  .status .big{font-size:15px}
+
+  .bar{height:12px;background:var(--track);border-radius:8px;overflow:hidden;margin:14px 0 6px}
+  .bar > i{display:block;height:100%;width:0;background:var(--brand);transition:width .15s}
+  .pct{font-size:12.5px;color:var(--sub)}
+
+  .vlabel{font-size:12.5px;color:var(--sub);margin:14px 2px 6px}
+  .variants{display:flex;gap:8px}
+  .variant{flex:1;padding:11px;border:1.5px solid var(--line);border-radius:10px;background:#fff;
+    font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;text-align:center;font-family:inherit}
+  .variant.active{border-color:var(--brand);background:#eef3ff;color:var(--brand)}
+  .vwarn{color:var(--err);font-size:13px;margin-top:8px;text-align:center;font-weight:600}
+  .pf-label{display:block;font-size:12.5px;color:var(--sub);margin:16px 2px 6px}
+  .pf-in{width:100%;padding:11px;border:1.5px solid var(--line);border-radius:10px;
+    font-size:14px;font-family:inherit;box-sizing:border-box;background:#fff;color:var(--ink)}
+  .pf-in:focus{outline:none;border-color:var(--brand)}
+  .combo{position:relative}
+  .combo-list{position:absolute;left:0;right:0;top:calc(100% + 4px);background:#fff;
+    border:1.5px solid var(--line);border-radius:10px;max-height:230px;overflow:auto;z-index:20;
+    box-shadow:0 10px 24px rgba(31,39,51,.14)}
+  .combo-item{padding:10px 12px;font-size:14px;cursor:pointer}
+  .combo-item:hover{background:#eef3ff;color:var(--brand)}
+  .combo-item.auto{font-weight:600;border-bottom:1px solid var(--line)}
+  .combo-empty{padding:10px 12px;font-size:13px;color:var(--sub)}
+
+  button{
+    width:100%;margin-top:14px;padding:14px;border:0;border-radius:12px;
+    font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;
+  }
+  .primary{background:var(--brand);color:var(--brand-ink)}
+  .primary:disabled{background:#b8c6e6;cursor:default}
+  .ghost{background:transparent;color:var(--sub);font-weight:600;font-size:13px;padding:10px;margin-top:6px}
+
+  .ok{color:var(--ok)} .warn{color:var(--warn)} .err{color:var(--err)} .sub2{color:var(--ink)}
+  .msg{font-size:13.5px;white-space:pre-line;margin-top:8px;color:var(--ink)}
+  .hide{display:none}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="head">
+      <h1>ELRS 수신기 펌웨어 업데이트</h1>
+      <p id="shop">팰콘샵 · 간편 업데이트 도구</p>
+    </div>
+    <div class="body">
+
+      <!-- SELECT MODEL -->
+      <section id="v-select">
+        <label class="pf-label" for="model-input">수신기 선택 <span style="color:var(--sub)">(입력해서 검색)</span></label>
+        <div class="combo">
+          <input type="text" id="model-input" class="pf-in" autocomplete="off" spellcheck="false" placeholder="예: nano, rp1, er8, superd …">
+          <div id="model-list" class="combo-list hide"></div>
+        </div>
+        <div class="status" style="text-align:left">
+          <div class="meta">• <b>자동 선택</b>은 수신기 WiFi에 연결하면 모델을 자동 감지합니다.<br>
+          • 수신기 WiFi 접속이 필요하며, 번들에 없는 모델은 <b>펌웨어 다운로드</b>를 위해 인터넷 연결(WiFi 전환)이 필요할 수 있습니다.</div>
+        </div>
+        <div id="prep-msg" class="pf-label hide"></div>
+        <button class="primary" id="btn-start">시작</button>
+      </section>
+
+      <!-- WAITING -->
+      <section id="v-wait" class="hide">
+        <div class="step"><span class="dot">1</span><span>수신기에 <b>전원</b>을 넣으세요 (조종기는 <b>꺼둔 채로</b>).</span></div>
+        <div class="step"><span class="dot">2</span><span>약 <b>60초</b> 기다리면 수신기가 WiFi를 켭니다.</span></div>
+        <div class="step"><span class="dot">3</span><span>이 PC를 WiFi <b>ExpressLRS RX</b> 에 연결 (암호: <b>expresslrs</b>).</span></div>
+        <div class="status">
+          <div class="spin"></div>
+          <div class="big" id="wait-text">수신기를 찾는 중…</div>
+          <div class="meta">연결되면 자동으로 다음 단계로 넘어갑니다.</div>
+        </div>
+      </section>
+
+      <!-- DETECTED -->
+      <section id="v-ready" class="hide">
+        <div class="status">
+          <div class="model" id="model">-</div>
+          <div class="meta" id="meta">-</div>
+        </div>
+        <div id="ready-note" class="msg"></div>
+        <div id="vlabel" class="vlabel hide">펌웨어 선택</div>
+        <div id="variants" class="variants"></div>
+        <div id="vwarn" class="vwarn hide">⚠️ 펌웨어를 선택하세요 (KC펌 또는 글로벌펌)</div>
+        <label class="pf-label" for="phrase">바인딩 문구 (선택 · 비우면 건너뜁니다)</label>
+        <input type="text" id="phrase" class="pf-in" placeholder="" autocomplete="off" spellcheck="false">
+        <button class="primary" id="btn-flash">업데이트 시작</button>
+      </section>
+
+      <!-- FLASHING -->
+      <section id="v-flash" class="hide">
+        <div class="status">
+          <div class="big">업데이트 중입니다…</div>
+          <div class="meta">전원을 빼지 마세요.</div>
+          <div class="bar"><i id="bar"></i></div>
+          <div class="pct" id="pct">0%</div>
+        </div>
+      </section>
+
+      <!-- DONE -->
+      <section id="v-done" class="hide">
+        <div class="status">
+          <div class="big" id="done-title">완료</div>
+          <div class="msg" id="done-msg"></div>
+        </div>
+        <button class="primary hide" id="btn-again">다시 하기</button>
+      </section>
+
+      <button class="ghost" id="btn-quit">닫기</button>
+    </div>
+  </div>
+
+<script>
+const $ = id => document.getElementById(id);
+const views = ["v-select","v-wait","v-ready","v-flash","v-done"];
+function show(v){ views.forEach(x=>$(x).classList.toggle("hide", x!==v)); }
+
+let detectTimer = null;
+let curVersion = "";
+let selectedVariant = "";
+let hadPhrase = false;
+function renderVariants(vs){
+  const vc = $("variants"); vc.innerHTML = "";
+  const multi = vs.length >= 2;               // only show the picker when there's a real choice
+  selectedVariant = (vs.length === 1) ? vs[0].id : "";  // single: auto-select; multi: no default (user must pick)
+  $("vlabel").classList.toggle("hide", !multi);
+  vc.classList.toggle("hide", !multi);
+  $("vwarn").classList.add("hide");
+  if(!multi) return;
+  vs.forEach((v)=>{
+    const b = document.createElement("div");
+    b.className = "variant";                   // nothing selected by default
+    b.textContent = v.label;
+    b.onclick = ()=>{ selectedVariant = v.id; $("vwarn").classList.add("hide");
+      [...vc.children].forEach(c=>c.classList.remove("active")); b.classList.add("active"); };
+    vc.appendChild(b);
+  });
+}
+async function detect(){
+  try{
+    const r = await fetch("/api/detect",{cache:"no-store"});
+    const d = await r.json();
+    if(d.found){
+      clearInterval(detectTimer); detectTimer=null;
+      curVersion = d.version || "?";
+      $("model").textContent = d.product_name || "ExpressLRS 수신기";
+      // KC firmware is tagged "3.6.4-KC" by our tool (has a real semver); older
+      // official KC-domain builds report "ver.unknown" (no semver, sometimes a
+      // "(sha)" suffix) — both count as KC. Everything else = 글로벌.
+      const isKC = /kc/i.test(curVersion) || /ver\.unknown/i.test(curVersion);
+      const cls = isKC ? "ok" : "sub2";
+      const fwlabel = isKC ? "KC펌" : "글로벌";
+      // Always show a version:
+      //  - our KC  → pull the semver we baked in ("3.6.4-KC") → v3.6.4
+      //  - old KC  → KC-domain has no semver and is 3.4.0-based → v3.4.0
+      //  - 글로벌   → the reported release number
+      const sem = (curVersion.match(/\d+\.\d+\.\d+/) || [])[0];
+      const ver = sem || (isKC ? "3.4.0" : curVersion);
+      let meta = "현재 펌: <b class='" + cls + "'>" + fwlabel + "</b>";
+      meta += " · v" + ver;
+      meta += " · " + (d.module_type||"RX");
+      $("meta").innerHTML = meta;
+      if(d.matched){
+        $("ready-note").innerHTML = "";
+        renderVariants(d.variants || []);
+        $("btn-flash").disabled = false;
+        $("btn-flash").textContent = "업데이트 시작";
+      }else{
+        $("ready-note").innerHTML = "<span class='warn'>이 수신기에 맞는 펌웨어가 이 도구에 없습니다.<br>판매처에 문의하세요.</span>";
+        renderVariants([]);
+        $("btn-flash").disabled = true;
+        $("btn-flash").textContent = "지원되지 않는 모델";
+      }
+      show("v-ready");
+    }
+  }catch(e){/* keep waiting */}
+}
+function startDetect(){ show("v-wait"); if(!detectTimer){ detect(); detectTimer=setInterval(detect,2000);} }
+
+$("btn-flash").onclick = ()=>{
+  if(!selectedVariant){ $("vwarn").classList.remove("hide"); return; }
+  const phrase = ($("phrase").value||"").trim();
+  hadPhrase = phrase.length > 0;
+  show("v-flash"); $("bar").style.width="0%"; $("pct").textContent="0%";
+  const es = new EventSource("/api/flash?variant=" + encodeURIComponent(selectedVariant) +
+    "&phrase=" + encodeURIComponent(phrase));
+  es.addEventListener("progress", e=>{
+    const p = parseInt(e.data,10)||0;
+    $("bar").style.width = p+"%"; $("pct").textContent = p+"%";
+  });
+  es.addEventListener("done", e=>{
+    es.close();
+    let d={}; try{ d=JSON.parse(e.data);}catch(_){}
+    const t=$("done-title"), m=$("done-msg");
+    if(d.status==="ok"){
+      const gz = !!d.gz;   // gz = ESP8285 (applies over ~10s); raw = ESP32/C3 (instant)
+      const bindLine = hadPhrase ? "\n바인딩 문구도 설정되었습니다." : "";
+      const prev = "\n(이전 버전: " + (curVersion||"?") + ")";
+      if(gz){
+        t.textContent="✅ 업로드 완료"; t.className="big ok";
+        const head = d.label ? (d.label + " 업로드가 완료되었습니다.") : "업로드가 완료되었습니다.";
+        m.textContent = head + bindLine + prev + "\n\n" +
+          "지금 수신기가 업데이트 중입니다. 약 10초 소요되며, LED가 깜빡이기 시작하면 끝난 것이니 그 때 전원을 빼시면 완료됩니다.";
+      }else{
+        t.textContent="✅ 업데이트 완료"; t.className="big ok";
+        const head = d.label ? (d.label + "으로 업데이트가 완료되었습니다.") : "업데이트가 완료되었습니다.";
+        m.textContent = head + bindLine + prev + "\n\n" +
+          "수신기가 재부팅됩니다. LED가 깜빡이면 완료된 것이니 전원을 빼시면 됩니다.";
+      }
+      $("btn-again").classList.add("hide");
+    }else if(d.status==="mismatch"){
+      t.textContent="⚠️ 모델 불일치"; t.className="big warn";
+      m.textContent = (d.msg||"업로드한 펌웨어가 이 수신기와 다릅니다.");
+      $("btn-again").classList.remove("hide");
+    }else{
+      t.textContent="❌ 업데이트 실패"; t.className="big err";
+      m.textContent = (d.msg||"오류가 발생했습니다. 전원을 껐다 켜고 다시 시도하세요.");
+      $("btn-again").classList.remove("hide");
+    }
+    show("v-done");
+  });
+  es.onerror = ()=>{ es.close();
+    $("done-title").textContent="❌ 연결 끊김"; $("done-title").className="big err";
+    $("done-msg").textContent="수신기와 연결이 끊겼습니다. WiFi 연결을 확인하고 다시 시도하세요.";
+    $("btn-again").classList.remove("hide"); show("v-done");
+  };
+};
+
+let allModels = [];
+let selMatch = "__auto__", selName = "";
+const AUTO = {name:"자동 선택 (수신기에 연결해 자동 감지)", match:"__auto__"};
+function renderCombo(filter){
+  const list = $("model-list"); list.innerHTML = "";
+  const q = (filter||"").trim().toLowerCase();
+  const items = allModels.filter(m => m.match==="__auto__" || m.name.toLowerCase().includes(q));
+  if(items.length===0){ list.innerHTML = "<div class='combo-empty'>일치하는 수신기 없음</div>"; list.classList.remove("hide"); return; }
+  items.forEach(m=>{
+    const d = document.createElement("div");
+    d.className = "combo-item" + (m.match==="__auto__" ? " auto" : "");
+    d.textContent = m.name;
+    d.onmousedown = (e)=>{ e.preventDefault(); selMatch=m.match; selName=m.name;
+      $("model-input").value = m.name; $("model-list").classList.add("hide"); };
+    list.appendChild(d);
+  });
+  list.classList.remove("hide");
+}
+async function initSelect(){
+  show("v-select");
+  try{ const r=await fetch("/api/models"); allModels=[AUTO].concat(await r.json()); }
+  catch(e){ allModels=[AUTO]; }
+  selMatch="__auto__"; selName=AUTO.name;
+  const inp=$("model-input"); inp.value=AUTO.name;
+  inp.onfocus = ()=>{ inp.select(); renderCombo(""); };
+  inp.oninput = ()=>{ selMatch=""; renderCombo(inp.value); };
+  inp.onblur = ()=>{ setTimeout(()=>{ $("model-list").classList.add("hide");
+    if(!selMatch){ const hit=allModels.find(m=>m.name.toLowerCase()===inp.value.trim().toLowerCase());
+      if(hit){ selMatch=hit.match; selName=hit.name; inp.value=hit.name; }
+      else { inp.value=selName; selMatch=(allModels.find(m=>m.name===selName)||AUTO).match; } } }, 150); };
+}
+$("btn-start").onclick = async ()=>{
+  const v = selMatch || "__auto__";
+  if(v === "__auto__"){ startDetect(); return; }
+  const btn=$("btn-start"), pm=$("prep-msg");
+  btn.disabled=true; btn.textContent="펌웨어 다운로드 중…"; pm.classList.add("hide");
+  try{
+    const r = await fetch("/api/prepare?model="+encodeURIComponent(v));
+    const d = await r.json();
+    if(!d.ok){
+      pm.classList.remove("hide");
+      pm.innerHTML = "<span class='warn'>인터넷 연결이 없어 펌을 미리 못 받았습니다. 수신기 연결 후 필요하면 다시 안내합니다.</span>";
+    }
+  }catch(e){}
+  btn.disabled=false; btn.textContent="시작";
+  startDetect();
+};
+$("btn-again").onclick = ()=> initSelect();
+$("btn-quit").onclick = ()=>{ fetch("/api/quit").catch(()=>{}); setTimeout(()=>window.close(),150); };
+
+// heartbeat so the exe can exit when this window is closed
+setInterval(()=>fetch("/api/ping").catch(()=>{}), 2000);
+window.addEventListener("load", ()=>{ fetch("/api/ping").catch(()=>{}); initSelect(); });
+</script>
+</body>
+</html>
