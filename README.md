@@ -8,7 +8,7 @@
 1. 수신기에 **전원**을 넣는다 (조종기는 **꺼둔 채로**).
 2. 약 **60초** 기다리면 수신기가 WiFi를 켠다.
 3. PC를 WiFi **`ExpressLRS RX`** 에 연결한다 (암호: `expresslrs`).
-4. **`ELRS-Updater.exe`** 실행 → 창이 뜨고 수신기를 자동 인식 → **업데이트 시작** 클릭.
+4. **[`ELRS-Updater.exe`](https://github.com/falconshop/elrs-updater/releases/latest/download/ELRS-Updater.exe)** 실행 → 창이 뜨고 수신기를 자동 인식 → **업데이트 시작** 클릭.
 5. 완료 메시지가 뜰 때까지, 그리고 LED가 다시 깜빡일 때까지 **전원을 빼지 않는다**.
 
 > 폰만 있어도 가능: `ExpressLRS RX` WiFi에 접속 후 브라우저로 `http://10.0.0.1` 접속 → 펌 파일 업로드.
