@@ -14,7 +14,7 @@ import (
 	"time"
 )
 
-const releaseBase = "https://github.com/falconshop/elrs-auto-firmware/releases/download/3.6.4"
+const releaseBase = "https://github.com/falconshop/elrs-updater/releases/download/3.6.4"
 
 var errNoInternet = fmt.Errorf("no-internet")
 

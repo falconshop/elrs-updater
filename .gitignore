@@ -6,5 +6,5 @@ __pycache__/
 *.pyc
 build/bins/
 elrs-updater-cache/
-# nested firmware repo clone (published separately: falconshop/elrs-auto-firmware)
+# nested repo clone, if any
 repo/

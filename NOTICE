@@ -3,7 +3,7 @@ This tool (the Go program in this repository) is licensed under the MIT License
 receivers over WiFi (HTTP OTA); it does not incorporate ExpressLRS source code.
 
 The firmware binaries under firmware/ (and those downloaded at runtime from
-https://github.com/falconshop/elrs-auto-firmware) are ExpressLRS and are
+this repository's Releases) are ExpressLRS and are
 licensed under the GNU GPL v3. They are merely aggregated/carried by this tool
 as data. Their corresponding source is published at:
 
