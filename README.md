@@ -14,6 +14,23 @@
 > 폰만 있어도 가능: `ExpressLRS RX` WiFi에 접속 후 브라우저로 `http://10.0.0.1` 접속 → 펌 파일 업로드.
 > exe는 이 과정을 자동화하고 올바른 펌을 자동 선택해 줄 뿐이다.
 
+## 화면으로 보는 순서
+
+<table>
+<tr>
+<td width="50%"><b>1. 수신기 선택</b><br>기본은 <b>자동 선택</b> — 연결된 수신기를 자동 감지합니다.<br><br><img src="Screenshot/01.PNG" width="380"></td>
+<td width="50%"><b>2. 모델 검색·선택</b><br>모델을 알면 <code>nano, rp1, er8</code> 처럼 입력해 고를 수도 있습니다.<br><br><img src="Screenshot/02.PNG" width="380"></td>
+</tr>
+<tr>
+<td><b>3. 수신기 탐색</b><br>전원 → 약 60초 → WiFi <code>ExpressLRS RX</code> 접속. 연결되면 자동으로 넘어갑니다.<br><br><img src="Screenshot/03.PNG" width="380"></td>
+<td><b>4. 감지 완료</b><br>모델과 현재 펌(KC/글로벌·버전)을 표시. <b>KC펌/글로벌펌</b>을 고르고, 바인딩 문구는 선택 입력합니다.<br><br><img src="Screenshot/04.PNG" width="380"></td>
+</tr>
+<tr>
+<td><b>5. 업데이트 진행</b><br>진행 중에는 <b>전원을 빼지 마세요</b>.<br><br><img src="Screenshot/05.PNG" width="380"></td>
+<td><b>6. 완료</b><br>수신기가 재부팅됩니다. <b>LED가 다시 깜빡이면</b> 전원을 빼도 됩니다.<br><br><img src="Screenshot/06.PNG" width="380"></td>
+</tr>
+</table>
+
 ## 개발자: 펌웨어 넣고 빌드하기
 
 1. 모델별 펌웨어 `.bin`을 `firmware\` 폴더에 넣는다.
