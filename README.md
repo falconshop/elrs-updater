@@ -44,3 +44,23 @@
 - `ELRS_HOST` : 수신기 주소 (기본 `10.0.0.1`)
 - `ELRS_ADDR` : 로컬 UI 서버 바인드 주소 (기본 랜덤 포트)
 - `ELRS_NOBROWSER` : 설정 시 Edge 앱 창을 열지 않고 자동종료도 끔(테스트)
+
+## KC 소스 / 라이선스 (GPLv3)
+
+이 도구(이 저장소의 Go 프로그램)는 **MIT** 라이선스입니다([LICENSE](LICENSE)).
+수신기와 WiFi(HTTP OTA)로 **통신만** 하며 ExpressLRS 소스를 포함하지 않는 독립 프로그램입니다.
+
+번들되거나 릴리스에서 내려받는 **펌웨어 바이너리는 ExpressLRS 기반이며 GPLv3**를 따릅니다([NOTICE](NOTICE)).
+대응 소스코드는 아래에서 공개되어 있습니다.
+
+- **KC펌 소스** (팰콘샵 KC 포크): https://github.com/falconshop/ExpressLRS-KC/tree/KC-3.6.4
+- **글로벌펌 소스**: https://github.com/ExpressLRS/ExpressLRS/tree/3.6.4
+- **하드웨어 타겟 정의**: https://github.com/ExpressLRS/targets
+
+KC펌은 공식 ExpressLRS 3.6.4에서 **딱 두 파일만** 다릅니다.
+
+- `src/lib/FHSS/FHSS.cpp` : 2.4GHz FHSS 대역을 ISM(2400.4–2479.4MHz, 80채널)에서
+  한국 KC 대역(**2420.4–2479.4MHz, 60채널**)으로 제한 (SX128x + LR1121 2.4 측)
+- `src/python/elrs_helpers.py` : 식별용으로 버전 문자열을 `3.6.4-KC`로 표기
+
+전체 변경 내용은 위 KC펌 소스 저장소에서 확인할 수 있습니다.
