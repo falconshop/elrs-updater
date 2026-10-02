@@ -31,14 +31,18 @@
 </tr>
 </table>
 
-## 🔒 코드 서명
+## 🔒 실행할 때 "Windows의 PC 보호" 창이 뜨면
 
-`ELRS-Updater.exe` 는 **Falconshop Inc** 명의의 **EV 코드 서명**이 되어 있습니다.
-받아서 실행할 때 "알 수 없는 게시자"나 SmartScreen 경고 없이 실행되며, 게시자는
-**Falconshop Inc** 로 표시됩니다.
+`ELRS-Updater.exe` 는 **Falconshop Inc** 명의로 코드 서명되어 있습니다. 다만 Windows는 새로 나온
+프로그램을 다운로드 이력이 쌓일 때까지 아래 창으로 한 번 더 확인합니다. **바이러스 경고가 아닙니다.**
 
-파일을 마우스 오른쪽 버튼 → **속성** → **디지털 서명** 탭에서 서명자 `Falconshop Inc` 를
-확인할 수 있습니다. 서명이 없거나 다른 이름이면 공식 배포 파일이 아니니 실행하지 마세요.
+<img src="Screenshot/smartscreen.png" width="360">
+
+1. **추가 정보** 를 누릅니다.
+2. **게시자: Falconshop Inc** 로 나오는지 확인합니다.
+3. **실행** 을 누릅니다.
+
+게시자가 `Falconshop Inc` 가 아니거나 비어 있으면 공식 배포 파일이 아니니 실행하지 마세요.
 
 ## 개발자: 펌웨어 넣고 빌드하기
 
